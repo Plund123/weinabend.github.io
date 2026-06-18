@@ -12,6 +12,7 @@ const wineProfiles = [
     match: '71% Match',
     title: 'Merlot, 7 Jahre',
     label: 'Château Chaos',
+    image: 'assets/profiles/chaos-merlot.png',
     ariaLabel: 'Rotweinflasche Château Chaos mit dramatischem Dating-Profil-Hintergrund',
     verified: '✓ Korkifiziert',
     bio: 'Ich bin vollmundig, leicht dramatisch und suche jemanden, der mich erst atmen lässt und dann trotzdem zu schnell austrinkt.',
@@ -30,6 +31,7 @@ const wineProfiles = [
     match: '84% Match',
     title: 'Riesling Rebell, 4 Jahre',
     label: 'Riesling\nRebell',
+    image: 'assets/profiles/riesling-rebell.png',
     ariaLabel: 'Rieslingflasche mit funkelndem Dating-Profil-Hintergrund',
     verified: '✓ Steillagen-Star',
     bio: 'Ich wirke erst trocken, bringe dann aber überraschend viel Frische, Zitrus und Diskussionen über Mineralität mit.',
@@ -48,6 +50,7 @@ const wineProfiles = [
     match: '63% Match',
     title: 'Pinot Prinzessin, 6 Jahre',
     label: 'Pinot\nPrinzessin',
+    image: 'assets/profiles/pinot-prinzessin.png',
     ariaLabel: 'Pinot-Noir-Flasche mit elegantem Dating-Profil-Hintergrund',
     verified: '✓ Samt geprüft',
     bio: 'Ich bin elegant, launisch und verschwinde auf Partys gern mit der besten Pilz-Pasta in eine ruhige Ecke.',
@@ -66,6 +69,7 @@ const wineProfiles = [
     match: '58% Match',
     title: 'Rosé Romantik, 2 Jahre',
     label: 'Rosé\nRomantik',
+    image: 'assets/profiles/rose-romantik.png',
     ariaLabel: 'Roséflasche mit sommerlichem Dating-Profil-Hintergrund',
     verified: '✓ Picknickbereit',
     bio: 'Ich bin unkompliziert, sonnenhungrig und der Meinung, dass jede Terrasse ein bisschen Provence verdient.',
@@ -84,6 +88,7 @@ const wineProfiles = [
     match: '99% Match',
     title: 'Spätburgunder Sieger, 5 Jahre',
     label: 'Sieger\nWein',
+    image: 'assets/profiles/spatburgunder-sieger.png',
     ariaLabel: 'Richtige Spätburgunderflasche mit goldenem Dating-Profil-Hintergrund',
     verified: '✓ Richtiger Wein',
     bio: 'Ich bin der gesuchte Wein des Abends: charmant, ausgewogen und genau die richtige Wahl, wenn dein Herz sicher zuschlägt.',
@@ -237,6 +242,26 @@ function setName(name) {
   localStorage.setItem('weinmatchName', currentName);
 }
 
+function setProfilePhoto(profile) {
+  profilePhoto.style.backgroundImage = '';
+  profilePhoto.classList.remove('profile-photo--image');
+
+  if (!profile.image) {
+    return;
+  }
+
+  const profileImage = new Image();
+  profileImage.addEventListener('load', () => {
+    if (wineProfiles[currentProfileIndex]?.image !== profile.image) {
+      return;
+    }
+
+    profilePhoto.style.backgroundImage = `url("${profile.image}")`;
+    profilePhoto.classList.add('profile-photo--image');
+  });
+  profileImage.src = profile.image;
+}
+
 function renderProfile() {
   const profile = wineProfiles[currentProfileIndex];
   profilePhoto.style.backgroundImage = profile.image ? `url("${profile.image}")` : '';
@@ -304,6 +329,14 @@ function endGame(won) {
   showScreen('result');
 }
 
+function restartAfterAllProfilesRejected() {
+  window.alert(
+    'Alle weggeswiped? Selbst der Korkenzieher ist enttäuscht. Wir füllen dein Glas nochmal auf - zweite Runde!',
+  );
+  currentProfileIndex = 0;
+  renderProfile();
+}
+
 function moveToNextProfile(message) {
   if (currentProfileIndex < wineProfiles.length - 1) {
     currentProfileIndex += 1;
@@ -312,7 +345,7 @@ function moveToNextProfile(message) {
     return true;
   }
 
-  actionMessage.textContent = 'Das war das letzte Profil. Jetzt zählt nur noch das Herz.';
+  restartAfterAllProfilesRejected();
   return false;
 }
 
