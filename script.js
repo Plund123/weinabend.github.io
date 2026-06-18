@@ -107,7 +107,7 @@ const wineProfiles = [
     match: '92% Match',
     title: 'Vogelsang, 24',
     label: 'Vogelsang\nRiesling',
-    image: 'assets/profiles/vogelsang-profile.png',
+    image: 'assets/profiles/vogelsang-riesling.png',
     ariaLabel: 'Vogelsang-Profilbild: Person mit Rieslingflasche in einem Mosel-Weinberg bei Sonnenuntergang',
     verified: '● Jetzt aktiv',
     bio: 'Ich komme aus einer guten Apotheke. Steile Lagen, harter Schiefer, ehrliche Arbeit. Ich bin kein Mainstream. Sondern Steillage. Mag Fisch, gute Gespräche und Sonnenuntergänge.',
