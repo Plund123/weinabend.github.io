@@ -123,21 +123,85 @@ const winnersList = document.querySelector('#winners-list');
 const restartButton = document.querySelector('#restart-button');
 const resetWinnersButton = document.querySelector('#reset-winners-button');
 
+const WINNERS_STORAGE_KEY = 'weinmatchWinners';
+const remoteWinnersConfig = window.WEINMATCH_CONFIG?.remoteWinners || {};
+const remoteWinnersUrl = remoteWinnersConfig.databaseUrl
+  ? `${remoteWinnersConfig.databaseUrl.replace(/\/$/, '')}/${remoteWinnersConfig.path || 'winners'}.json`
+  : '';
+const winnersSyncIntervalMs = remoteWinnersConfig.syncIntervalMs || 5000;
+let winnersSyncTimer;
+
 let currentName = localStorage.getItem('weinmatchName') || '';
 let currentProfileIndex = 0;
 let gameOver = false;
 let isSwiping = false;
 
-function getWinners() {
-  return JSON.parse(localStorage.getItem('weinmatchWinners') || '[]');
+function getLocalWinners() {
+  return JSON.parse(localStorage.getItem(WINNERS_STORAGE_KEY) || '[]');
+}
+
+function saveLocalWinners(winners) {
+  localStorage.setItem(WINNERS_STORAGE_KEY, JSON.stringify(winners));
+}
+
+function normalizeWinners(winners) {
+  return [...new Set((winners || []).map((winner) => winner.trim()).filter(Boolean))];
+}
+
+function getRemoteWinners() {
+  if (!remoteWinnersUrl) {
+    return Promise.resolve(getLocalWinners());
+  }
+
+  return fetch(remoteWinnersUrl)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Remote winners could not be loaded.');
+      }
+      return response.json();
+    })
+    .then((winners) => {
+      if (Array.isArray(winners)) {
+        return normalizeWinners(winners);
+      }
+
+      return normalizeWinners(Object.keys(winners || {}));
+    })
+    .catch(() => getLocalWinners());
 }
 
 function saveWinner(name) {
-  const winners = getWinners();
-  if (!winners.includes(name)) {
-    winners.push(name);
-    localStorage.setItem('weinmatchWinners', JSON.stringify(winners));
+  const normalizedName = name.trim();
+  const localWinners = normalizeWinners([...getLocalWinners(), normalizedName]);
+  saveLocalWinners(localWinners);
+
+  if (!remoteWinnersUrl || !normalizedName) {
+    return Promise.resolve(localWinners);
   }
+
+  return fetch(`${remoteWinnersUrl.replace(/\.json$/, '')}/${encodeURIComponent(normalizedName)}.json`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(true),
+  })
+    .then(getRemoteWinners)
+    .then((winners) => {
+      saveLocalWinners(winners);
+      return winners;
+    })
+    .catch(() => localWinners);
+}
+
+function resetWinners() {
+  localStorage.removeItem(WINNERS_STORAGE_KEY);
+
+  if (!remoteWinnersUrl) {
+    return Promise.resolve([]);
+  }
+
+  return fetch(remoteWinnersUrl, { method: 'DELETE' })
+    .then(() => [])
+    .catch(() => []);
 }
 
 function showScreen(screenName) {
@@ -170,12 +234,13 @@ function renderProfile() {
   actionMessage.textContent = '';
 }
 
-function renderWinners() {
-  const winners = getWinners();
+function renderWinners(winners = getLocalWinners()) {
+  const normalizedWinners = normalizeWinners(winners);
+  saveLocalWinners(normalizedWinners);
   winnersList.replaceChildren();
 
-  const namesToRender = winners.length
-    ? winners
+  const namesToRender = normalizedWinners.length
+    ? normalizedWinners
     : ['Noch niemand hat den richtigen Wein gewählt.'];
 
   namesToRender.forEach((winner) => {
@@ -185,11 +250,23 @@ function renderWinners() {
   });
 }
 
+function syncAndRenderWinners() {
+  return getRemoteWinners().then(renderWinners);
+}
+
+function startWinnersSync() {
+  if (!remoteWinnersUrl || winnersSyncTimer) {
+    return;
+  }
+
+  winnersSyncTimer = window.setInterval(syncAndRenderWinners, winnersSyncIntervalMs);
+}
+
 function endGame(won) {
   gameOver = true;
 
   if (won) {
-    saveWinner(currentName);
+    saveWinner(currentName).then(renderWinners);
     resultEyebrow.textContent = 'Korrekt verkostet';
     resultTitle.textContent = 'Du hast den richtigen Wein gefunden!';
     resultCopy.textContent = 'Dein Name wurde in die Liste der erfolgreichen WeinMatcher aufgenommen.';
@@ -199,7 +276,8 @@ function endGame(won) {
     resultCopy.textContent = 'Das Herz schlug für den falschen Wein. Das Spiel ist damit beendet.';
   }
 
-  renderWinners();
+  syncAndRenderWinners();
+  startWinnersSync();
   showScreen('result');
 }
 
@@ -287,8 +365,13 @@ restartButton.addEventListener('click', () => {
 });
 
 resetWinnersButton.addEventListener('click', () => {
-  localStorage.removeItem('weinmatchWinners');
-  renderWinners();
+  resetWinners().then(renderWinners);
+});
+
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) {
+    syncAndRenderWinners();
+  }
 });
 
 if (currentName) {

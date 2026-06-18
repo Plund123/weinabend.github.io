@@ -128,6 +128,17 @@
         </div>
       </section>
     </main>
+    <script>
+      window.WEINMATCH_CONFIG = {
+        remoteWinners: {
+          // Firebase Realtime Database URL eintragen, um Gewinner:innen geräteübergreifend zu synchronisieren.
+          // Beispiel: databaseUrl: 'https://dein-projekt-default-rtdb.europe-west1.firebasedatabase.app',
+          databaseUrl: '',
+          path: 'weinabend-2026/winners',
+          syncIntervalMs: 5000,
+        },
+      };
+    </script>
     <script src="script.js"></script>
   </body>
 </html>
