@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WeinMatch | Dein Date für den Weinabend</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section id="landing" class="screen screen--active" aria-labelledby="landing-title">
+        <div class="hero-card">
+          <p class="eyebrow">🍷 Weinabend presents</p>
+          <h1 id="landing-title">Finde dein perfektes Wein-Date.</h1>
+          <p class="hero-copy">
+            Swipe dich nicht durchs Leben, sondern direkt ins Glas. Verrate uns deinen Namen und wir matchen dich mit einem Charakterwein.
+          </p>
+          <form id="name-form" class="name-form">
+            <label for="username">Dein Name</label>
+            <div class="input-row">
+              <input id="username" name="username" type="text" placeholder="z. B. Sommelier-Sascha" autocomplete="name" required maxlength="32" />
+              <button type="submit">Match starten</button>
+            </div>
+            <p class="hint">Keine Sorge: Deine Geheimnisse bleiben im Fass.</p>
+          </form>
+        </div>
+      </section>
+
+      <section id="confirm" class="screen" aria-labelledby="confirm-title">
+        <div class="confirm-card">
+          <p class="eyebrow">Letzte Qualitätskontrolle</p>
+          <h2 id="confirm-title">Stimmt das Etikett?</h2>
+          <p class="confirm-name" id="confirm-name"></p>
+          <p>Wenn ja, öffnet sich gleich dein exklusives WeinMatch-Profil.</p>
+          <div class="button-row">
+            <button id="edit-name" class="button button--ghost" type="button">Korken zurück</button>
+            <button id="confirm-name-button" class="button" type="button">Ja, einschenken!</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="profile" class="screen" aria-labelledby="profile-title">
+        <article class="wine-profile">
+          <div class="profile-photo" role="img" aria-label="Rotweinflasche mit dramatischem Dating-Profil-Hintergrund">
+            <div class="sparkle sparkle--one">✦</div>
+            <div class="sparkle sparkle--two">✦</div>
+            <div class="wine-bottle">
+              <div class="bottle-neck"></div>
+              <div class="bottle-body">
+                <span>Château<br />Chaos</span>
+              </div>
+            </div>
+          </div>
+          <div class="profile-content">
+            <div class="profile-heading">
+              <div>
+                <p class="match-label">99% Match mit <span id="profile-user">dir</span></p>
+                <h2 id="profile-title">Merlot, 7 Jahre</h2>
+              </div>
+              <span class="verified">✓ Korkifiziert</span>
+            </div>
+
+            <p class="bio">
+              Ich bin vollmundig, leicht dramatisch und suche jemanden, der mich erst atmen lässt und dann trotzdem zu schnell austrinkt.
+            </p>
+
+            <div class="tag-list" aria-label="Eigenschaften">
+              <span>🍒 fruchtig</span>
+              <span>🔥 samtig</span>
+              <span>🎭 komplex</span>
+              <span>💬 redet nach 2 Gläsern</span>
+            </div>
+
+            <section class="info-grid" aria-label="Weinprofil-Details">
+              <div>
+                <strong>Job</strong>
+                <span>Trauben-Therapeut</span>
+              </div>
+              <div>
+                <strong>Wohnort</strong>
+                <span>Barrique mit Balkon</span>
+              </div>
+              <div>
+                <strong>Sucht</strong>
+                <span>Käseplatte mit emotionaler Reife</span>
+              </div>
+              <div>
+                <strong>Red Flag</strong>
+                <span>Wird bei Schraubverschluss sensibel</span>
+              </div>
+            </section>
+
+            <div class="prompt-card">
+              <span>Meine perfekte erste Nachricht:</span>
+              <p>„Hey, riechst du auch Vanille oder ist das nur unsere Chemie?“</p>
+            </div>
+
+            <div class="swipe-actions" aria-label="Tinder-ähnliche Aktionen">
+              <button id="nope-button" class="swipe swipe--nope" type="button" aria-label="Ablehnen">✕</button>
+              <button id="toast-button" class="swipe swipe--super" type="button" aria-label="Anstoßen">🥂</button>
+              <button id="like-button" class="swipe swipe--like" type="button" aria-label="Gefällt mir">♥</button>
+            </div>
+            <p id="action-message" class="action-message" aria-live="polite"></p>
+          </div>
+        </article>
+      </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
