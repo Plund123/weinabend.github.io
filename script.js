@@ -105,6 +105,7 @@ const profileUser = document.querySelector('#profile-user');
 const editButton = document.querySelector('#edit-name');
 const confirmButton = document.querySelector('#confirm-name-button');
 const actionMessage = document.querySelector('#action-message');
+const wineProfileCard = document.querySelector('.wine-profile');
 const profilePhoto = document.querySelector('#profile-photo');
 const bottleLabel = document.querySelector('#bottle-label');
 const matchLabel = document.querySelector('#match-label');
@@ -125,6 +126,7 @@ const resetWinnersButton = document.querySelector('#reset-winners-button');
 let currentName = localStorage.getItem('weinmatchName') || '';
 let currentProfileIndex = 0;
 let gameOver = false;
+let isSwiping = false;
 
 function getWinners() {
   return JSON.parse(localStorage.getItem('weinmatchWinners') || '[]');
@@ -206,10 +208,31 @@ function moveToNextProfile(message) {
     currentProfileIndex += 1;
     renderProfile();
     actionMessage.textContent = message;
-    return;
+    return true;
   }
 
   actionMessage.textContent = 'Das war das letzte Profil. Jetzt zählt nur noch das Herz.';
+  return false;
+}
+
+function swipeLeftToNextProfile(message) {
+  if (isSwiping) {
+    return;
+  }
+
+  if (currentProfileIndex >= wineProfiles.length - 1) {
+    moveToNextProfile(message);
+    return;
+  }
+
+  isSwiping = true;
+  wineProfileCard.classList.add('wine-profile--swipe-left');
+
+  window.setTimeout(() => {
+    moveToNextProfile(message);
+    wineProfileCard.classList.remove('wine-profile--swipe-left');
+    isSwiping = false;
+  }, 360);
 }
 
 form.addEventListener('submit', (event) => {
@@ -240,13 +263,13 @@ confirmButton.addEventListener('click', () => {
 
 document.querySelector('#nope-button').addEventListener('click', () => {
   if (!gameOver) {
-    moveToNextProfile('Weitergewischt. Vielleicht wartet der richtige Wein im nächsten Profil.');
+    swipeLeftToNextProfile('Weitergewischt. Vielleicht wartet der richtige Wein im nächsten Profil.');
   }
 });
 
 document.querySelector('#toast-button').addEventListener('click', () => {
   if (!gameOver) {
-    moveToNextProfile(`Prost, ${currentName || 'Weinfreund:in'}! Das Superlike überspringt zum nächsten Glas.`);
+    endGame(wineProfiles[currentProfileIndex].isCorrect);
   }
 });
 
