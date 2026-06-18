@@ -200,6 +200,16 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
     linear-gradient(180deg, #6247a4 0%, #f07870 42%, #f8b05b 59%, #402638 100%);
 }
 
+.profile-photo--image {
+  background-position: center;
+  background-size: cover;
+}
+
+.profile-photo--image .wine-bottle,
+.profile-photo--image .sparkle {
+  display: none;
+}
+
 .profile-photo::before {
   content: "";
   position: absolute;
@@ -211,6 +221,13 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
     repeating-linear-gradient(105deg, transparent 0 18px, rgba(37, 72, 38, 0.56) 19px 26px, transparent 27px 42px),
     linear-gradient(to top, #172b21 0 24%, transparent 24%);
   opacity: 0.9;
+}
+
+.profile-photo--image::before {
+  z-index: 1;
+  background:
+    linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.48) 24%, rgba(0,0,0,0.08) 48%, rgba(0,0,0,0.02) 100%);
+  opacity: 1;
 }
 
 .profile-photo::after {
