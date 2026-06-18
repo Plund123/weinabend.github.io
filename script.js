@@ -2,6 +2,7 @@ const screens = {
   landing: document.querySelector('#landing'),
   confirm: document.querySelector('#confirm'),
   profile: document.querySelector('#profile'),
+  swipedThrough: document.querySelector('#swiped-through'),
   result: document.querySelector('#result'),
 };
 
@@ -148,6 +149,7 @@ const resultCopy = document.querySelector('#result-copy');
 const winnersList = document.querySelector('#winners-list');
 const restartButton = document.querySelector('#restart-button');
 const resetWinnersButton = document.querySelector('#reset-winners-button');
+const swipedThroughCloseButton = document.querySelector('#swiped-through-close');
 
 const WINNERS_STORAGE_KEY = 'weinmatchWinners';
 const remoteWinnersConfig = window.WEINMATCH_CONFIG?.remoteWinners || {};
@@ -330,11 +332,13 @@ function endGame(won) {
 }
 
 function restartAfterAllProfilesRejected() {
-  window.alert(
-    'Alle weggeswiped? Selbst der Korkenzieher ist enttäuscht. Wir füllen dein Glas nochmal auf - zweite Runde!',
-  );
+  showScreen('swipedThrough');
+}
+
+function closeSwipedThroughPage() {
   currentProfileIndex = 0;
   renderProfile();
+  showScreen('profile');
 }
 
 function moveToNextProfile(message) {
@@ -423,6 +427,8 @@ restartButton.addEventListener('click', () => {
 resetWinnersButton.addEventListener('click', () => {
   resetWinners().then(renderWinners);
 });
+
+swipedThroughCloseButton.addEventListener('click', closeSwipedThroughPage);
 
 document.addEventListener('visibilitychange', () => {
   if (!document.hidden) {
