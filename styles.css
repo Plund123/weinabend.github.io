@@ -55,14 +55,14 @@ button, input { font: inherit; }
 .screen { display: none; width: min(100%, 980px); }
 .screen--active { display: block; animation: pop 420ms ease; }
 
-.hero-card, .confirm-card, .result-card, .wine-profile {
+.hero-card, .confirm-card, .swiped-through-card, .result-card, .wine-profile {
   border: 1px solid rgba(255, 255, 255, 0.72);
   background: rgba(255, 255, 255, 0.86);
   box-shadow: var(--shadow);
   backdrop-filter: blur(20px);
 }
 
-.hero-card, .confirm-card, .result-card {
+.hero-card, .confirm-card, .swiped-through-card, .result-card {
   position: relative;
   max-width: 760px;
   margin: auto;
@@ -72,7 +72,7 @@ button, input { font: inherit; }
   overflow: hidden;
 }
 
-.hero-card::before, .confirm-card::before, .result-card::before {
+.hero-card::before, .confirm-card::before, .swiped-through-card::before, .result-card::before {
   content: "";
   position: absolute;
   inset: 0 0 auto;
@@ -98,14 +98,14 @@ h1, h2 {
 h1 { font-size: clamp(3rem, 9vw, 6.7rem); }
 h2 { font-size: clamp(2.15rem, 5vw, 4rem); }
 
-.hero-card h1, .confirm-card h2, .result-card h2 {
+.hero-card h1, .confirm-card h2, .swiped-through-card h2, .result-card h2 {
   background: linear-gradient(135deg, var(--tinder-pink), var(--tinder-red), var(--tinder-orange));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-.hero-copy, .confirm-card p, .bio, .result-copy {
+.hero-copy, .confirm-card p, .bio, .swiped-through-copy, .result-copy {
   color: var(--muted);
   font-size: clamp(1rem, 2vw, 1.2rem);
   line-height: 1.65;
