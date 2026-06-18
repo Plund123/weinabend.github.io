@@ -261,7 +261,7 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
   position: relative;
   z-index: 2;
   margin-top: -248px;
-  padding: 0 18px 24px;
+  padding: 0 18px 132px;
   color: #fff;
 }
 
@@ -278,7 +278,19 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
 .info-grid span, .prompt-card p { margin: 0; color: var(--text); line-height: 1.42; font-size: 0.94rem; }
 .prompt-card { margin: 10px 0 18px; }
 .profile-progress { margin: 0 0 12px; color: var(--muted); font-size: 0.76rem; font-weight: 900; text-align: center; text-transform: uppercase; letter-spacing: 0.08em; }
-.swipe-actions { display: flex; justify-content: center; gap: 18px; }
+.swipe-actions {
+  position: fixed;
+  right: 0;
+  bottom: max(22px, env(safe-area-inset-bottom));
+  left: 0;
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  pointer-events: none;
+}
+
+.swipe-actions .swipe { pointer-events: auto; }
 .swipe { width: 64px; height: 64px; padding: 0; border: 1px solid var(--line); border-radius: 50%; font-size: 1.75rem; background: #fff; box-shadow: 0 14px 34px rgba(22, 28, 40, 0.14); }
 .swipe--nope { color: var(--tinder-red); }
 .swipe--super { color: var(--tinder-blue); }
