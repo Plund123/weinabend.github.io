@@ -107,7 +107,7 @@ const wineProfiles = [
     match: '92% Match',
     title: 'Vogelsang, 24',
     label: 'Vogelsang\nRiesling',
-    image: 'assets/profiles/vogelsang-riesling.png',
+    image: 'assets/vogelsang-profile.svg',
     ariaLabel: 'Vogelsang-Profilbild: Person mit Rieslingflasche in einem Mosel-Weinberg bei Sonnenuntergang',
     verified: '● Jetzt aktiv',
     bio: 'Ich komme aus einer guten Apotheke. Steile Lagen, harter Schiefer, ehrliche Arbeit. Ich bin kein Mainstream. Sondern Steillage. Mag Fisch, gute Gespräche und Sonnenuntergänge.',
@@ -264,8 +264,9 @@ function setProfilePhoto(profile) {
 
 function renderProfile() {
   const profile = wineProfiles[currentProfileIndex];
-  setProfilePhoto(profile);
+  profilePhoto.style.backgroundImage = profile.image ? `url("${profile.image}")` : '';
   profilePhoto.setAttribute('aria-label', profile.ariaLabel);
+  profilePhoto.classList.toggle('profile-photo--image', Boolean(profile.image));
   bottleLabel.innerHTML = profile.label.replace('\n', '<br />');
   matchLabel.textContent = `${profile.match} mit `;
   matchLabel.append(profileUser);
