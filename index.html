@@ -44,37 +44,37 @@
 
       <section id="profile" class="screen" aria-labelledby="profile-title">
         <article class="wine-profile">
-          <div class="profile-photo" role="img" aria-label="Rotweinflasche mit dramatischem Dating-Profil-Hintergrund">
+          <div id="profile-photo" class="profile-photo" role="img" aria-label="Rotweinflasche mit dramatischem Dating-Profil-Hintergrund">
             <div class="sparkle sparkle--one">✦</div>
             <div class="sparkle sparkle--two">✦</div>
             <div class="wine-bottle">
               <div class="bottle-neck"></div>
               <div class="bottle-body">
-                <span>Château<br />Chaos</span>
+                <span id="bottle-label">Château<br />Chaos</span>
               </div>
             </div>
           </div>
           <div class="profile-content">
             <div class="profile-heading">
               <div>
-                <p class="match-label">99% Match mit <span id="profile-user">dir</span></p>
+                <p id="match-label" class="match-label">99% Match mit <span id="profile-user">dir</span></p>
                 <h2 id="profile-title">Merlot, 7 Jahre</h2>
               </div>
-              <span class="verified">✓ Korkifiziert</span>
+              <span id="verified" class="verified">✓ Korkifiziert</span>
             </div>
 
-            <p class="bio">
+            <p id="bio" class="bio">
               Ich bin vollmundig, leicht dramatisch und suche jemanden, der mich erst atmen lässt und dann trotzdem zu schnell austrinkt.
             </p>
 
-            <div class="tag-list" aria-label="Eigenschaften">
+            <div id="tag-list" class="tag-list" aria-label="Eigenschaften">
               <span>🍒 fruchtig</span>
               <span>🔥 samtig</span>
               <span>🎭 komplex</span>
               <span>💬 redet nach 2 Gläsern</span>
             </div>
 
-            <section class="info-grid" aria-label="Weinprofil-Details">
+            <section id="info-grid" class="info-grid" aria-label="Weinprofil-Details">
               <div>
                 <strong>Job</strong>
                 <span>Trauben-Therapeut</span>
@@ -95,8 +95,10 @@
 
             <div class="prompt-card">
               <span>Meine perfekte erste Nachricht:</span>
-              <p>„Hey, riechst du auch Vanille oder ist das nur unsere Chemie?“</p>
+              <p id="prompt-text">„Hey, riechst du auch Vanille oder ist das nur unsere Chemie?“</p>
             </div>
+
+            <p id="profile-progress" class="profile-progress">Profil 1 von 5</p>
 
             <div class="swipe-actions" aria-label="Tinder-ähnliche Aktionen">
               <button id="nope-button" class="swipe swipe--nope" type="button" aria-label="Ablehnen">✕</button>
@@ -106,6 +108,24 @@
             <p id="action-message" class="action-message" aria-live="polite"></p>
           </div>
         </article>
+      </section>
+
+      <section id="result" class="screen" aria-labelledby="result-title">
+        <div class="result-card">
+          <p id="result-eyebrow" class="eyebrow">Auswertung</p>
+          <h2 id="result-title">Ergebnis</h2>
+          <p id="result-copy" class="result-copy"></p>
+
+          <section class="winners-panel" aria-labelledby="winners-title">
+            <h3 id="winners-title">Diese angemeldeten Benutzer:innen haben den richtigen Wein gewählt:</h3>
+            <ul id="winners-list" class="winners-list"></ul>
+          </section>
+
+          <div class="button-row">
+            <button id="restart-button" class="button" type="button">Nochmal probieren</button>
+            <button id="reset-winners-button" class="button button--ghost" type="button">Auswertung leeren</button>
+          </div>
+        </div>
       </section>
     </main>
     <script src="script.js"></script>
