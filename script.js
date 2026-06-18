@@ -96,6 +96,27 @@ const wineProfiles = [
     },
     prompt: '„Drück aufs Herz, wenn du dir wirklich sicher bist.“',
   },
+  {
+    id: 'vogelsang-riesling',
+    isCorrect: false,
+    match: '92% Match',
+    title: 'Vogelsang, 24',
+    label: 'Vogelsang\nRiesling',
+    image: 'assets/vogelsang-profile.svg',
+    ariaLabel: 'Vogelsang-Profilbild: Person mit Rieslingflasche in einem Mosel-Weinberg bei Sonnenuntergang',
+    verified: '● Jetzt aktiv',
+    bio: 'Ich komme aus einer guten Apotheke. Steile Lagen, harter Schiefer, ehrliche Arbeit. Ich bin kein Mainstream. Sondern Steillage. Mag Fisch, gute Gespräche und Sonnenuntergänge.',
+    tags: ['🍷 Weinabende', '⛰️ Wandern', '✈️ Spontan reisen', '🎵 Gute Musik', '🍴 Feines Essen'],
+    details: {
+      Standort: 'Trittenheimer Apotheke, Mosel',
+      Stil: 'Riesling · trocken · mineralisch',
+      Beruf: 'Charakterdarsteller',
+      Suche: 'Tiefe Gespräche & langfristige Verbindung',
+      Song: 'Rivers and Roads · The Head and the Heart',
+      Motto: 'Zeit macht Wein. Und die besten Dinge brauchen Geduld.',
+    },
+    prompt: '„Wenn du Schiefer, Sonnenuntergänge und ehrliche Gespräche magst, sollten wir anstoßen.“',
+  },
 ];
 
 const form = document.querySelector('#name-form');
@@ -218,7 +239,9 @@ function setName(name) {
 
 function renderProfile() {
   const profile = wineProfiles[currentProfileIndex];
+  profilePhoto.style.backgroundImage = profile.image ? `url("${profile.image}")` : '';
   profilePhoto.setAttribute('aria-label', profile.ariaLabel);
+  profilePhoto.classList.toggle('profile-photo--image', Boolean(profile.image));
   bottleLabel.innerHTML = profile.label.replace('\n', '<br />');
   matchLabel.textContent = `${profile.match} mit `;
   matchLabel.append(profileUser);
