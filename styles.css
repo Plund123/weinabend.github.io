@@ -228,7 +228,7 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
   z-index: 5;
   top: 18px;
   left: 20px;
-  width: 142px;
+  width: 168px;
   height: auto;
   filter: drop-shadow(0 3px 18px rgba(0,0,0,0.52));
 }
@@ -279,7 +279,7 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
 .profile-photo::after {
   content: "Heute Abend · 2 km entfernt";
   position: absolute;
-  top: 82px;
+  top: 68px;
   right: 18px;
   z-index: 3;
   border: 1px solid rgba(255,255,255,0.3);

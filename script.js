@@ -459,7 +459,7 @@ confirmButton.addEventListener('click', () => {
 
 document.querySelector('#nope-button').addEventListener('click', () => {
   if (!gameOver) {
-    swipeLeftToNextProfile('Weitergewischt. Vielleicht wartet der richtige Wein im nächsten Profil.');
+    swipeLeftToNextProfile('');
   }
 });
 
