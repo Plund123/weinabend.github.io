@@ -268,9 +268,16 @@ function showScreen(screenName) {
   screens[screenName].classList.add('screen--active');
 }
 
+function updateEtikettNameSize(name) {
+  const length = name.length;
+  const size = Math.max(1.15, Math.min(2.85, 3.35 - length * 0.07));
+  confirmName.style.setProperty('--etikett-name-size', `${size}rem`);
+}
+
 function setName(name) {
   currentName = name.trim();
   confirmName.textContent = currentName;
+  updateEtikettNameSize(currentName);
   profileUser.textContent = currentName;
   localStorage.setItem('weinmatchName', currentName);
 }
@@ -485,5 +492,6 @@ document.addEventListener('visibilitychange', () => {
 if (currentName) {
   usernameInput.value = currentName;
   confirmName.textContent = currentName;
+  updateEtikettNameSize(currentName);
   profileUser.textContent = currentName;
 }
