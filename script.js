@@ -151,8 +151,6 @@ const winnersList = document.querySelector('#winners-list');
 const losersList = document.querySelector('#losers-list');
 const adminWinnersList = document.querySelector('#admin-winners-list');
 const adminLosersList = document.querySelector('#admin-losers-list');
-const restartButton = document.querySelector('#restart-button');
-const resetWinnersButton = document.querySelector('#reset-winners-button');
 const adminRefreshButton = document.querySelector('#admin-refresh-button');
 const adminResetResultsButton = document.querySelector('#admin-reset-results-button');
 const swipedThroughCloseButton = document.querySelector('#swiped-through-close');
@@ -468,17 +466,6 @@ document.querySelector('#like-button').addEventListener('click', () => {
   if (!gameOver) {
     endGame(wineProfiles[currentProfileIndex].isCorrect);
   }
-});
-
-restartButton.addEventListener('click', () => {
-  currentProfileIndex = 0;
-  gameOver = false;
-  renderProfile();
-  showScreen('profile');
-});
-
-resetWinnersButton.addEventListener('click', () => {
-  resetResults().then(renderResults);
 });
 
 swipedThroughCloseButton.addEventListener('click', closeSwipedThroughPage);
