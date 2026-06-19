@@ -72,6 +72,13 @@ button, input { font: inherit; }
   overflow: hidden;
 }
 
+.page-logo {
+  display: block;
+  width: min(100%, 220px);
+  height: auto;
+  margin: 0 auto 28px;
+}
+
 .hero-card::before, .confirm-card::before, .swiped-through-card::before, .result-card::before {
   content: "";
   position: absolute;
@@ -203,7 +210,7 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
 }
 
 .wine-profile::before {
-  content: "WeinMatch";
+  content: "";
   position: absolute;
   z-index: 4;
   top: 0;
@@ -212,15 +219,18 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
   display: flex;
   align-items: center;
   height: 72px;
-  padding: 0 22px 0 58px;
-  color: #fff;
-  font-size: 1.35rem;
-  font-weight: 900;
-  letter-spacing: -0.04em;
-  background:
-    radial-gradient(circle at 28px 35px, #fff 0 7px, transparent 8px),
-    linear-gradient(180deg, rgba(11, 13, 21, 0.7), transparent);
-  text-shadow: 0 3px 18px rgba(0,0,0,0.52);
+  background: linear-gradient(180deg, rgba(11, 13, 21, 0.7), transparent);
+  pointer-events: none;
+}
+
+.profile-logo {
+  position: absolute;
+  z-index: 5;
+  top: 18px;
+  left: 20px;
+  width: 142px;
+  height: auto;
+  filter: drop-shadow(0 3px 18px rgba(0,0,0,0.52));
 }
 
 .profile-photo {
