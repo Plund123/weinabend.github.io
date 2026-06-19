@@ -4,6 +4,7 @@ const screens = {
   profile: document.querySelector('#profile'),
   swipedThrough: document.querySelector('#swiped-through'),
   result: document.querySelector('#result'),
+  admin: document.querySelector('#admin'),
 };
 
 const wineProfiles = [
@@ -147,14 +148,24 @@ const resultEyebrow = document.querySelector('#result-eyebrow');
 const resultTitle = document.querySelector('#result-title');
 const resultCopy = document.querySelector('#result-copy');
 const winnersList = document.querySelector('#winners-list');
+const losersList = document.querySelector('#losers-list');
+const adminWinnersList = document.querySelector('#admin-winners-list');
+const adminLosersList = document.querySelector('#admin-losers-list');
 const restartButton = document.querySelector('#restart-button');
 const resetWinnersButton = document.querySelector('#reset-winners-button');
+const adminRefreshButton = document.querySelector('#admin-refresh-button');
+const adminResetResultsButton = document.querySelector('#admin-reset-results-button');
 const swipedThroughCloseButton = document.querySelector('#swiped-through-close');
 
 const WINNERS_STORAGE_KEY = 'weinmatchWinners';
+const LOSERS_STORAGE_KEY = 'weinmatchLosers';
 const remoteWinnersConfig = window.WEINMATCH_CONFIG?.remoteWinners || {};
-const remoteWinnersUrl = remoteWinnersConfig.databaseUrl
-  ? `${remoteWinnersConfig.databaseUrl.replace(/\/$/, '')}/${remoteWinnersConfig.path || 'winners'}.json`
+const remoteBaseUrl = remoteWinnersConfig.databaseUrl ? remoteWinnersConfig.databaseUrl.replace(/\/$/, '') : '';
+const remoteWinnersUrl = remoteBaseUrl
+  ? `${remoteBaseUrl}/${remoteWinnersConfig.winnersPath || remoteWinnersConfig.path || 'winners'}.json`
+  : '';
+const remoteLosersUrl = remoteBaseUrl
+  ? `${remoteBaseUrl}/${remoteWinnersConfig.losersPath || 'losers'}.json`
   : '';
 const winnersSyncIntervalMs = remoteWinnersConfig.syncIntervalMs || 5000;
 let winnersSyncTimer;
@@ -164,72 +175,94 @@ let currentProfileIndex = 0;
 let gameOver = false;
 let isSwiping = false;
 
-function getLocalWinners() {
-  return JSON.parse(localStorage.getItem(WINNERS_STORAGE_KEY) || '[]');
+function getLocalNames(storageKey) {
+  return JSON.parse(localStorage.getItem(storageKey) || '[]');
 }
 
-function saveLocalWinners(winners) {
-  localStorage.setItem(WINNERS_STORAGE_KEY, JSON.stringify(winners));
+function saveLocalNames(storageKey, names) {
+  localStorage.setItem(storageKey, JSON.stringify(names));
 }
 
-function normalizeWinners(winners) {
-  return [...new Set((winners || []).map((winner) => winner.trim()).filter(Boolean))];
+function normalizeNames(names) {
+  return [...new Set((names || []).map((name) => name.trim()).filter(Boolean))];
 }
 
-function getRemoteWinners() {
-  if (!remoteWinnersUrl) {
-    return Promise.resolve(getLocalWinners());
+function readRemoteNames(remoteUrl, storageKey) {
+  if (!remoteUrl) {
+    return Promise.resolve(getLocalNames(storageKey));
   }
 
-  return fetch(remoteWinnersUrl)
+  return fetch(remoteUrl)
     .then((response) => {
       if (!response.ok) {
-        throw new Error('Remote winners could not be loaded.');
+        throw new Error('Remote results could not be loaded.');
       }
       return response.json();
     })
-    .then((winners) => {
-      if (Array.isArray(winners)) {
-        return normalizeWinners(winners);
+    .then((names) => {
+      if (Array.isArray(names)) {
+        return normalizeNames(names);
       }
 
-      return normalizeWinners(Object.keys(winners || {}));
+      return normalizeNames(Object.keys(names || {}));
     })
-    .catch(() => getLocalWinners());
+    .catch(() => getLocalNames(storageKey));
 }
 
-function saveWinner(name) {
+function saveResultName(name, remoteUrl, storageKey) {
   const normalizedName = name.trim();
-  const localWinners = normalizeWinners([...getLocalWinners(), normalizedName]);
-  saveLocalWinners(localWinners);
+  const localNames = normalizeNames([...getLocalNames(storageKey), normalizedName]);
+  saveLocalNames(storageKey, localNames);
 
-  if (!remoteWinnersUrl || !normalizedName) {
-    return Promise.resolve(localWinners);
+  if (!remoteUrl || !normalizedName) {
+    return Promise.resolve(localNames);
   }
 
-  return fetch(`${remoteWinnersUrl.replace(/\.json$/, '')}/${encodeURIComponent(normalizedName)}.json`, {
+  return fetch(`${remoteUrl.replace(/\.json$/, '')}/${encodeURIComponent(normalizedName)}.json`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(true),
   })
-    .then(getRemoteWinners)
-    .then((winners) => {
-      saveLocalWinners(winners);
-      return winners;
+    .then(() => readRemoteNames(remoteUrl, storageKey))
+    .then((names) => {
+      saveLocalNames(storageKey, names);
+      return names;
     })
-    .catch(() => localWinners);
+    .catch(() => localNames);
 }
 
-function resetWinners() {
+function getLocalWinners() {
+  return getLocalNames(WINNERS_STORAGE_KEY);
+}
+
+function getLocalLosers() {
+  return getLocalNames(LOSERS_STORAGE_KEY);
+}
+
+function getRemoteWinners() {
+  return readRemoteNames(remoteWinnersUrl, WINNERS_STORAGE_KEY);
+}
+
+function getRemoteLosers() {
+  return readRemoteNames(remoteLosersUrl, LOSERS_STORAGE_KEY);
+}
+
+function saveWinner(name) {
+  return saveResultName(name, remoteWinnersUrl, WINNERS_STORAGE_KEY);
+}
+
+function saveLoser(name) {
+  return saveResultName(name, remoteLosersUrl, LOSERS_STORAGE_KEY);
+}
+
+function resetResults() {
   localStorage.removeItem(WINNERS_STORAGE_KEY);
+  localStorage.removeItem(LOSERS_STORAGE_KEY);
 
-  if (!remoteWinnersUrl) {
-    return Promise.resolve([]);
-  }
-
-  return fetch(remoteWinnersUrl, { method: 'DELETE' })
-    .then(() => [])
-    .catch(() => []);
+  return Promise.all([
+    remoteWinnersUrl ? fetch(remoteWinnersUrl, { method: 'DELETE' }).catch(() => undefined) : Promise.resolve(),
+    remoteLosersUrl ? fetch(remoteLosersUrl, { method: 'DELETE' }).catch(() => undefined) : Promise.resolve(),
+  ]).then(() => ({ winners: [], losers: [] }));
 }
 
 function showScreen(screenName) {
@@ -284,24 +317,35 @@ function renderProfile() {
   actionMessage.textContent = '';
 }
 
-function renderWinners(winners = getLocalWinners()) {
-  const normalizedWinners = normalizeWinners(winners);
-  saveLocalWinners(normalizedWinners);
-  winnersList.replaceChildren();
+function renderNameList(listElement, names, emptyText) {
+  if (!listElement) {
+    return;
+  }
 
-  const namesToRender = normalizedWinners.length
-    ? normalizedWinners
-    : ['Noch niemand hat den richtigen Wein gewählt.'];
+  listElement.replaceChildren();
 
-  namesToRender.forEach((winner) => {
+  const namesToRender = names.length ? names : [emptyText];
+  namesToRender.forEach((name) => {
     const item = document.createElement('li');
-    item.textContent = winner;
-    winnersList.append(item);
+    item.textContent = name;
+    listElement.append(item);
   });
 }
 
-function syncAndRenderWinners() {
-  return getRemoteWinners().then(renderWinners);
+function renderResults({ winners = getLocalWinners(), losers = getLocalLosers() } = {}) {
+  const normalizedWinners = normalizeNames(winners);
+  const normalizedLosers = normalizeNames(losers);
+  saveLocalNames(WINNERS_STORAGE_KEY, normalizedWinners);
+  saveLocalNames(LOSERS_STORAGE_KEY, normalizedLosers);
+
+  renderNameList(winnersList, normalizedWinners, 'Noch niemand hat den richtigen Wein gewählt.');
+  renderNameList(adminWinnersList, normalizedWinners, 'Noch keine Gewinner:innen.');
+  renderNameList(losersList, normalizedLosers, 'Noch niemand hat verloren.');
+  renderNameList(adminLosersList, normalizedLosers, 'Noch keine Verlierer:innen.');
+}
+
+function syncAndRenderResults() {
+  return Promise.all([getRemoteWinners(), getRemoteLosers()]).then(([winners, losers]) => renderResults({ winners, losers }));
 }
 
 function startWinnersSync() {
@@ -309,24 +353,25 @@ function startWinnersSync() {
     return;
   }
 
-  winnersSyncTimer = window.setInterval(syncAndRenderWinners, winnersSyncIntervalMs);
+  winnersSyncTimer = window.setInterval(syncAndRenderResults, winnersSyncIntervalMs);
 }
 
 function endGame(won) {
   gameOver = true;
 
   if (won) {
-    saveWinner(currentName).then(renderWinners);
+    saveWinner(currentName).then((winners) => renderResults({ winners }));
     resultEyebrow.textContent = 'Korrekt verkostet';
     resultTitle.textContent = 'Du hast den richtigen Wein gefunden!';
     resultCopy.textContent = 'Dein Name wurde in die Liste der erfolgreichen WeinMatcher aufgenommen.';
   } else {
+    saveLoser(currentName).then((losers) => renderResults({ losers }));
     resultEyebrow.textContent = 'Leider entkorkt';
     resultTitle.textContent = 'Verloren!';
     resultCopy.textContent = 'Das Herz schlug für den falschen Wein. Das Spiel ist damit beendet.';
   }
 
-  syncAndRenderWinners();
+  syncAndRenderResults();
   startWinnersSync();
   showScreen('result');
 }
@@ -383,6 +428,14 @@ form.addEventListener('submit', (event) => {
   }
 
   setName(name);
+
+  if (name.toLowerCase() === 'admin') {
+    syncAndRenderResults();
+    startWinnersSync();
+    showScreen('admin');
+    return;
+  }
+
   showScreen('confirm');
 });
 
@@ -425,14 +478,20 @@ restartButton.addEventListener('click', () => {
 });
 
 resetWinnersButton.addEventListener('click', () => {
-  resetWinners().then(renderWinners);
+  resetResults().then(renderResults);
 });
 
 swipedThroughCloseButton.addEventListener('click', closeSwipedThroughPage);
 
+adminRefreshButton.addEventListener('click', syncAndRenderResults);
+
+adminResetResultsButton.addEventListener('click', () => {
+  resetResults().then(renderResults);
+});
+
 document.addEventListener('visibilitychange', () => {
   if (!document.hidden) {
-    syncAndRenderWinners();
+    syncAndRenderResults();
   }
 });
 

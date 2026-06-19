@@ -298,8 +298,13 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
 .action-message { min-height: 28px; margin: 12px 0 0; text-align: center; color: var(--tinder-red); font-weight: 800; }
 
 .result-card { max-width: 820px; }
-.winners-panel { margin: 30px 0; padding: 22px; border: 1px solid var(--line); border-radius: 26px; background: var(--surface-soft); text-align: left; }
+.admin-card { max-width: 980px; }
+.results-overview { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin: 30px 0; }
+.winners-panel { min-width: 0; padding: 22px; border: 1px solid var(--line); border-radius: 26px; background: var(--surface-soft); text-align: left; }
+.winners-panel--success { border-color: rgba(24, 214, 143, 0.35); background: rgba(24, 214, 143, 0.08); }
+.winners-panel--danger { border-color: rgba(255, 68, 88, 0.35); background: rgba(255, 68, 88, 0.08); }
 .winners-panel h3 { margin: 0 0 16px; color: var(--tinder-red); font-size: 1rem; text-transform: uppercase; letter-spacing: 0.08em; }
+.winners-panel--success h3 { color: #0c9b68; }
 .winners-list { display: grid; gap: 10px; margin: 0; padding-left: 22px; color: var(--text); font-weight: 800; }
 
 @keyframes pop { from { opacity: 0; transform: scale(0.98) translateY(12px); } to { opacity: 1; transform: scale(1) translateY(0); } }
@@ -318,6 +323,6 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
   .wine-profile { width: min(100%, 420px); min-height: calc(100vh - 24px); border-width: 7px; border-radius: 36px; }
   .profile-photo { min-height: 460px; }
   .wine-bottle { transform: translateY(-24px) scale(0.82); }
-  .profile-heading, .info-grid { grid-template-columns: 1fr; display: grid; }
+  .profile-heading, .info-grid, .results-overview { grid-template-columns: 1fr; display: grid; }
   .profile-heading { align-items: start; }
 }
