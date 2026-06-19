@@ -121,15 +121,45 @@
         </div>
       </section>
 
+      <section id="admin" class="screen" aria-labelledby="admin-title">
+        <div class="result-card admin-card">
+          <p class="eyebrow">Live-Adminbereich</p>
+          <h2 id="admin-title">Gewinner &amp; Verlierer</h2>
+          <p class="result-copy">Diese Übersicht aktualisiert sich automatisch und zeigt alle gespeicherten Ergebnisse live an.</p>
+
+          <section class="results-overview" aria-label="Admin-Live-Auswertung">
+            <div class="winners-panel winners-panel--success" aria-labelledby="admin-winners-title">
+              <h3 id="admin-winners-title">Gewinner:innen</h3>
+              <ul id="admin-winners-list" class="winners-list"></ul>
+            </div>
+            <div class="winners-panel winners-panel--danger" aria-labelledby="admin-losers-title">
+              <h3 id="admin-losers-title">Verlierer:innen</h3>
+              <ul id="admin-losers-list" class="winners-list"></ul>
+            </div>
+          </section>
+
+          <div class="button-row">
+            <button id="admin-refresh-button" class="button" type="button">Jetzt aktualisieren</button>
+            <button id="admin-reset-results-button" class="button button--ghost" type="button">Auswertung leeren</button>
+          </div>
+        </div>
+      </section>
+
       <section id="result" class="screen" aria-labelledby="result-title">
         <div class="result-card">
           <p id="result-eyebrow" class="eyebrow">Auswertung</p>
           <h2 id="result-title">Ergebnis</h2>
           <p id="result-copy" class="result-copy"></p>
 
-          <section class="winners-panel" aria-labelledby="winners-title">
-            <h3 id="winners-title">Diese angemeldeten Benutzer:innen haben den richtigen Wein gewählt:</h3>
-            <ul id="winners-list" class="winners-list"></ul>
+          <section class="results-overview" aria-label="Live-Auswertung">
+            <div class="winners-panel" aria-labelledby="winners-title">
+              <h3 id="winners-title">Gewinner:innen</h3>
+              <ul id="winners-list" class="winners-list"></ul>
+            </div>
+            <div class="winners-panel" aria-labelledby="losers-title">
+              <h3 id="losers-title">Verlierer:innen</h3>
+              <ul id="losers-list" class="winners-list"></ul>
+            </div>
           </section>
 
           <div class="button-row">
@@ -145,7 +175,8 @@
           // Firebase Realtime Database URL eintragen, um Gewinner:innen geräteübergreifend zu synchronisieren.
           // Beispiel: databaseUrl: 'https://dein-projekt-default-rtdb.europe-west1.firebasedatabase.app',
           databaseUrl: 'https://apensener-weinabend-default-rtdb.europe-west1.firebasedatabase.app/',
-          path: 'weinabend-2026/winners',
+          winnersPath: 'weinabend-2026/winners',
+          losersPath: 'weinabend-2026/losers',
           syncIntervalMs: 5000,
         },
       };
