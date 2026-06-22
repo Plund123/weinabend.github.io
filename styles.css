@@ -226,8 +226,8 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
 .profile-logo {
   position: absolute;
   z-index: 5;
-  top: 18px;
-  left: 20px;
+  top: 68px;
+  left: 10px;
   width: 168px;
   height: auto;
   filter: drop-shadow(0 3px 18px rgba(0,0,0,0.52));
