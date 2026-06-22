@@ -268,16 +268,40 @@ function showScreen(screenName) {
   screens[screenName].classList.add('screen--active');
 }
 
-function updateEtikettNameSize(name) {
-  const length = name.length;
-  const size = Math.max(1.15, Math.min(2.85, 3.35 - length * 0.07));
-  confirmName.style.setProperty('--etikett-name-size', `${size}rem`);
+function updateEtikettNameSize() {
+  const maxSize = 2.85;
+  const minSize = 0.72;
+  const horizontalPadding = 8;
+
+  confirmName.style.setProperty('--etikett-name-size', `${maxSize}rem`);
+
+  const availableWidth = confirmName.clientWidth - horizontalPadding;
+
+  if (availableWidth <= 0 || confirmName.scrollWidth <= availableWidth) {
+    return;
+  }
+
+  let low = minSize;
+  let high = maxSize;
+
+  for (let i = 0; i < 14; i += 1) {
+    const mid = (low + high) / 2;
+    confirmName.style.setProperty('--etikett-name-size', `${mid}rem`);
+
+    if (confirmName.scrollWidth <= availableWidth) {
+      low = mid;
+    } else {
+      high = mid;
+    }
+  }
+
+  confirmName.style.setProperty('--etikett-name-size', `${low}rem`);
 }
 
 function setName(name) {
   currentName = name.trim();
   confirmName.textContent = currentName;
-  updateEtikettNameSize(currentName);
+  updateEtikettNameSize();
   profileUser.textContent = currentName;
   localStorage.setItem('weinmatchName', currentName);
 }
@@ -442,6 +466,7 @@ form.addEventListener('submit', (event) => {
   }
 
   showScreen('confirm');
+  updateEtikettNameSize();
 });
 
 editButton.addEventListener('click', () => {
@@ -492,6 +517,12 @@ document.addEventListener('visibilitychange', () => {
 if (currentName) {
   usernameInput.value = currentName;
   confirmName.textContent = currentName;
-  updateEtikettNameSize(currentName);
+  updateEtikettNameSize();
   profileUser.textContent = currentName;
+}
+
+window.addEventListener('resize', updateEtikettNameSize);
+
+if (document.fonts) {
+  document.fonts.ready.then(updateEtikettNameSize);
 }
