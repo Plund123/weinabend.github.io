@@ -110,6 +110,7 @@ const wineProfiles = [
     title: 'Vogelsang, 24',
     label: 'Vogelsang\nRiesling',
     image: 'assets/profiles/vogelsang-riesling.png',
+    photoPosition: 'center 44%',
     ariaLabel: 'Vogelsang-Profilbild: Person mit Rieslingflasche in einem Mosel-Weinberg bei Sonnenuntergang',
     verified: '● Jetzt aktiv',
     bio: 'Ich komme aus einer guten Apotheke. Steile Lagen, harter Schiefer, ehrliche Arbeit. Ich bin kein Mainstream. Sondern Steillage. Mag Fisch, gute Gespräche und Sonnenuntergänge.',
@@ -135,6 +136,7 @@ const confirmButton = document.querySelector('#confirm-name-button');
 const actionMessage = document.querySelector('#action-message');
 const wineProfileCard = document.querySelector('.wine-profile');
 const profilePhoto = document.querySelector('#profile-photo');
+const profilePhotoImage = document.querySelector('#profile-photo-image');
 const bottleLabel = document.querySelector('#bottle-label');
 const matchLabel = document.querySelector('#match-label');
 const profileTitle = document.querySelector('#profile-title');
@@ -308,10 +310,16 @@ function setName(name) {
 
 function setProfilePhoto(profile) {
   profilePhoto.style.backgroundImage = '';
+  profilePhoto.style.removeProperty('--profile-photo-position');
   profilePhoto.classList.remove('profile-photo--image');
+  profilePhotoImage.removeAttribute('src');
 
   if (!profile.image) {
     return;
+  }
+
+  if (profile.photoPosition) {
+    profilePhoto.style.setProperty('--profile-photo-position', profile.photoPosition);
   }
 
   const profileImage = new Image();
@@ -321,6 +329,7 @@ function setProfilePhoto(profile) {
     }
 
     profilePhoto.style.backgroundImage = `url("${profile.image}")`;
+    profilePhotoImage.src = profile.image;
     profilePhoto.classList.add('profile-photo--image');
   });
   profileImage.src = profile.image;
@@ -328,9 +337,8 @@ function setProfilePhoto(profile) {
 
 function renderProfile() {
   const profile = wineProfiles[currentProfileIndex];
-  profilePhoto.style.backgroundImage = profile.image ? `url("${profile.image}")` : '';
+  setProfilePhoto(profile);
   profilePhoto.setAttribute('aria-label', profile.ariaLabel);
-  profilePhoto.classList.toggle('profile-photo--image', Boolean(profile.image));
   bottleLabel.innerHTML = profile.label.replace('\n', '<br />');
   matchLabel.textContent = `${profile.match} mit `;
   matchLabel.append(profileUser);
