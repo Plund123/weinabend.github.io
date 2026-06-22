@@ -68,7 +68,7 @@ button, input { font: inherit; }
   position: relative;
   max-width: 760px;
   margin: auto;
-  padding: clamp(28px, 7vw, 76px);
+  padding: clamp(24px, 5vw, 48px);
   border-radius: 34px;
   text-align: center;
   overflow: hidden;
@@ -78,7 +78,7 @@ button, input { font: inherit; }
   display: block;
   width: min(100%, 220px);
   height: auto;
-  margin: 0 auto 28px;
+  margin: 0 auto 16px;
 }
 
 .hero-card::before, .confirm-card::before, .swiped-through-card::before, .result-card::before {
@@ -120,7 +120,7 @@ h2 { font-size: clamp(2.15rem, 5vw, 4rem); }
   line-height: 1.65;
 }
 
-.name-form { margin-top: 34px; text-align: left; }
+.name-form { margin-top: 24px; text-align: left; }
 .name-form label { display: block; margin-bottom: 10px; font-weight: 800; }
 .input-row { display: flex; gap: 12px; }
 
@@ -155,7 +155,7 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
 .etikett-preview {
   position: relative;
   width: min(100%, 420px);
-  margin: 30px auto 26px;
+  margin: 22px auto 18px;
   filter: drop-shadow(0 24px 38px rgba(40, 30, 16, 0.16));
 }
 
@@ -370,7 +370,7 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
 
 .result-card { max-width: 820px; }
 .admin-card { max-width: 980px; }
-.results-overview { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin: 30px 0; }
+.results-overview { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin: 22px 0; }
 .winners-panel { min-width: 0; padding: 22px; border: 1px solid var(--line); border-radius: 26px; background: var(--surface-soft); text-align: left; }
 .winners-panel--success { border-color: rgba(24, 214, 143, 0.35); background: rgba(24, 214, 143, 0.08); }
 .winners-panel--danger { border-color: rgba(255, 68, 88, 0.35); background: rgba(255, 68, 88, 0.08); }
@@ -417,6 +417,7 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
   .hero-card, .confirm-card, .swiped-through-card, .result-card {
     min-height: 100dvh;
     border-radius: 0;
+    padding: clamp(22px, 7vw, 40px);
   }
 
   .wine-profile {
