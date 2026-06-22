@@ -53,6 +53,7 @@ button, input { font: inherit; }
 }
 
 .screen { display: none; width: min(100%, 980px); }
+#profile { width: min(100%, 430px); }
 .screen--active { display: block; animation: pop 420ms ease; }
 #profile.screen--active { animation: profile-pop 420ms ease; }
 
@@ -194,9 +195,10 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
 .wine-profile {
   position: relative;
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
   width: min(100%, 430px);
-  min-height: min(900px, calc(100vh - 48px));
+  height: min(900px, calc(100vh - 48px));
+  min-height: 620px;
   margin: auto;
   overflow: hidden;
   border: 10px solid #10141f;
@@ -227,9 +229,9 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
 .profile-logo {
   position: absolute;
   z-index: 5;
-  top: 68px;
-  left: 10px;
-  width: 168px;
+  top: 18px;
+  left: 18px;
+  width: 142px;
   height: auto;
   filter: drop-shadow(0 3px 18px rgba(0,0,0,0.52));
 }
@@ -237,7 +239,8 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
 .profile-photo {
   position: relative;
   display: grid;
-  min-height: 620px;
+  height: 100%;
+  min-height: 0;
   place-items: end center;
   overflow: hidden;
   isolation: isolate;
@@ -307,11 +310,16 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
 .profile-content {
   position: relative;
   z-index: 2;
-  margin-top: -248px;
+  align-self: end;
+  max-height: 66%;
+  margin-top: -58%;
   padding: 0 18px calc(132px + env(safe-area-inset-bottom));
+  overflow-y: auto;
+  scrollbar-width: none;
   color: #fff;
 }
 
+.profile-content::-webkit-scrollbar { display: none; }
 .profile-heading { display: flex; justify-content: space-between; gap: 14px; align-items: end; }
 .profile-heading h2 { color: #fff; font-size: clamp(2.2rem, 10vw, 3.1rem); text-shadow: 0 2px 18px rgba(0,0,0,0.5); }
 .match-label { margin-bottom: 8px; color: #fff; font-size: 0.78rem; text-shadow: 0 2px 12px rgba(0,0,0,0.45); }
@@ -328,7 +336,7 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
 .swipe-actions {
   position: fixed;
   right: 0;
-  bottom: max(18px, calc(env(safe-area-inset-bottom) + 18px));
+  bottom: max(16px, calc(env(safe-area-inset-bottom) + 16px));
   left: 0;
   z-index: 20;
   display: flex;
@@ -366,11 +374,160 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
 }
 
 @media (max-width: 780px) {
-  .app-shell { padding: 12px; }
+  body {
+    background: #11141c;
+  }
+
+  body::before {
+    display: none;
+  }
+
+  .app-shell {
+    min-height: 100dvh;
+    padding: 0;
+  }
+
+  .screen {
+    width: 100%;
+  }
+
+  #profile.screen--active {
+    display: grid;
+    min-height: 100dvh;
+  }
+
   .input-row { flex-direction: column; }
-  .wine-profile { width: min(100%, 420px); min-height: calc(100vh - 24px); border-width: 7px; border-radius: 36px; }
-  .profile-photo { min-height: 460px; }
+
+  .hero-card, .confirm-card, .swiped-through-card, .result-card {
+    min-height: 100dvh;
+    border-radius: 0;
+  }
+
+  .wine-profile {
+    width: 100%;
+    height: 100dvh;
+    min-height: 100dvh;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .wine-profile::before {
+    height: 112px;
+    background:
+      linear-gradient(180deg, rgba(9, 11, 18, 0.86), rgba(9, 11, 18, 0.24) 62%, transparent),
+      linear-gradient(90deg, rgba(253, 38, 122, 0.22), rgba(255, 122, 61, 0.16));
+  }
+
+  .profile-logo {
+    top: max(14px, env(safe-area-inset-top));
+    left: 16px;
+    width: 132px;
+  }
+
+  .profile-photo::after {
+    top: max(18px, calc(env(safe-area-inset-top) + 4px));
+    right: 14px;
+    padding: 8px 10px;
+    font-size: 0.68rem;
+  }
+
+  .profile-content {
+    max-height: 58%;
+    margin-top: -58%;
+    padding: 0 16px calc(112px + env(safe-area-inset-bottom));
+    background: linear-gradient(180deg, transparent, rgba(0,0,0,0.2) 8%, rgba(0,0,0,0.82) 34%, rgba(0,0,0,0.96));
+  }
+
+  .profile-heading {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    align-items: start;
+  }
+
+  .profile-heading h2 {
+    font-size: clamp(2rem, 10vw, 2.8rem);
+  }
+
+  .verified {
+    justify-self: start;
+    padding: 7px 10px;
+  }
+
+  .bio {
+    margin: 12px 0;
+    font-size: 0.98rem;
+    line-height: 1.48;
+  }
+
+  .tag-list {
+    gap: 7px;
+    margin-bottom: 12px;
+  }
+
+  .tag-list span {
+    padding: 7px 10px;
+    font-size: 0.8rem;
+  }
+
+  .info-grid, .results-overview {
+    grid-template-columns: 1fr;
+  }
+
+  .info-grid {
+    gap: 8px;
+  }
+
+  .info-grid div, .prompt-card {
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 16px;
+    padding: 12px;
+    background: rgba(255,255,255,0.93);
+  }
+
+  .prompt-card {
+    margin-bottom: 12px;
+  }
+
+  .profile-progress {
+    color: rgba(255,255,255,0.62);
+  }
+
+  .swipe-actions {
+    bottom: max(12px, calc(env(safe-area-inset-bottom) + 12px));
+    gap: clamp(14px, 6vw, 24px);
+  }
+
+  .swipe {
+    width: 58px;
+    height: 58px;
+    border: 0;
+    font-size: 1.55rem;
+    box-shadow: 0 14px 34px rgba(0,0,0,0.34);
+  }
+
+  .swipe--super {
+    width: 50px;
+    height: 50px;
+    align-self: center;
+    font-size: 1.28rem;
+  }
+
   .wine-bottle { transform: translateY(-24px) scale(0.82); }
-  .profile-heading, .info-grid, .results-overview { grid-template-columns: 1fr; display: grid; }
-  .profile-heading { align-items: start; }
+}
+
+@media (max-width: 380px) {
+  .profile-content {
+    max-height: 63%;
+    margin-top: -63%;
+  }
+
+  .profile-heading h2 {
+    font-size: 2rem;
+  }
+
+  .bio {
+    font-size: 0.92rem;
+  }
 }
