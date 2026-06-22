@@ -195,7 +195,7 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
 .wine-profile {
   position: relative;
   display: grid;
-  grid-template-rows: minmax(0, 1fr);
+  grid-template: minmax(0, 1fr) / minmax(0, 1fr);
   width: min(100%, 430px);
   height: min(900px, calc(100vh - 48px));
   min-height: 620px;
@@ -237,6 +237,7 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
 }
 
 .profile-photo {
+  grid-area: 1 / 1;
   position: relative;
   display: grid;
   height: 100%;
@@ -262,7 +263,7 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
   display: none;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   object-position: var(--profile-photo-position, center);
   filter: drop-shadow(0 24px 36px rgba(0,0,0,0.32));
 }
@@ -324,6 +325,7 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
 .sparkle--two { right: 14%; bottom: 35%; }
 
 .profile-content {
+  grid-area: 1 / 1;
   position: relative;
   z-index: 2;
   align-self: end;
