@@ -194,18 +194,21 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
 
 .wine-profile {
   position: relative;
-  display: grid;
-  grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+  display: flex;
+  flex-direction: column;
   width: min(100%, 430px);
   height: min(900px, calc(100vh - 48px));
   min-height: 620px;
   margin: auto;
-  overflow: hidden;
+  overflow: hidden auto;
   border: 10px solid #10141f;
   border-radius: 44px;
   background: #121620;
   box-shadow: var(--phone-shadow);
+  scrollbar-width: none;
 }
+
+.wine-profile::-webkit-scrollbar { display: none; }
 
 .wine-profile--swipe-left {
   pointer-events: none;
@@ -237,10 +240,10 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
 }
 
 .profile-photo {
-  grid-area: 1 / 1;
   position: relative;
   display: grid;
-  height: 100%;
+  flex: 0 0 clamp(380px, 58vh, 540px);
+  width: 100%;
   min-height: 0;
   place-items: end center;
   overflow: hidden;
@@ -325,17 +328,12 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
 .sparkle--two { right: 14%; bottom: 35%; }
 
 .profile-content {
-  grid-area: 1 / 1;
   position: relative;
   z-index: 2;
-  align-self: stretch;
-  height: 100%;
-  padding: 48% 18px calc(132px + env(safe-area-inset-bottom));
-  overflow-y: auto;
-  scrollbar-width: none;
+  flex: 1 0 auto;
+  padding: 18px 18px calc(132px + env(safe-area-inset-bottom));
   color: #fff;
-  background: linear-gradient(180deg, rgba(0,0,0,0) 0 36%, rgba(0,0,0,0.58) 46%, rgba(0,0,0,0.94) 62%, rgba(0,0,0,0.98));
-  -webkit-overflow-scrolling: touch;
+  background: linear-gradient(180deg, rgba(10, 12, 18, 0.98), rgba(0,0,0,0.98));
 }
 
 .profile-content::-webkit-scrollbar { display: none; }
@@ -477,9 +475,13 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
     font-size: 0.68rem;
   }
 
+  .profile-photo {
+    flex-basis: min(62dvh, 560px);
+  }
+
   .profile-content {
-    padding: 50% 16px calc(112px + env(safe-area-inset-bottom));
-    background: linear-gradient(180deg, rgba(0,0,0,0) 0 38%, rgba(0,0,0,0.52) 48%, rgba(0,0,0,0.9) 64%, rgba(0,0,0,0.98));
+    padding: 16px 16px calc(112px + env(safe-area-inset-bottom));
+    background: linear-gradient(180deg, rgba(10, 12, 18, 0.98), rgba(0,0,0,0.98));
   }
 
   .profile-heading {
@@ -561,10 +563,6 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
 }
 
 @media (max-width: 380px) {
-  .profile-content {
-    padding-top: 46%;
-  }
-
   .profile-heading h2 {
     font-size: 2rem;
   }
