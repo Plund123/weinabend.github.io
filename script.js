@@ -159,6 +159,7 @@ const adminRefreshButton = document.querySelector('#admin-refresh-button');
 const adminResetResultsButton = document.querySelector('#admin-reset-results-button');
 const swipedThroughCloseButton = document.querySelector('#swiped-through-close');
 
+const NAME_STORAGE_KEY = 'weinmatchName';
 const WINNERS_STORAGE_KEY = 'weinmatchWinners';
 const LOSERS_STORAGE_KEY = 'weinmatchLosers';
 const remoteWinnersConfig = window.WEINMATCH_CONFIG?.remoteWinners || {};
@@ -172,7 +173,7 @@ const remoteLosersUrl = remoteBaseUrl
 const winnersSyncIntervalMs = remoteWinnersConfig.syncIntervalMs || 5000;
 let winnersSyncTimer;
 
-let currentName = localStorage.getItem('weinmatchName') || '';
+let currentName = localStorage.getItem(NAME_STORAGE_KEY) || '';
 let currentProfileIndex = 0;
 let gameOver = false;
 let isSwiping = false;
@@ -307,7 +308,7 @@ function setName(name) {
   confirmName.textContent = currentName;
   updateEtikettNameSize();
   profileUser.textContent = currentName;
-  localStorage.setItem('weinmatchName', currentName);
+  localStorage.setItem(NAME_STORAGE_KEY, currentName);
 }
 
 function setProfilePhoto(profile) {
@@ -529,12 +530,28 @@ document.addEventListener('visibilitychange', () => {
   }
 });
 
-if (currentName) {
+function restoreSavedName() {
+  if (!currentName) {
+    return;
+  }
+
   usernameInput.value = currentName;
   confirmName.textContent = currentName;
-  updateEtikettNameSize();
   profileUser.textContent = currentName;
+  editButton.hidden = true;
+
+  if (currentName.toLowerCase() === 'admin') {
+    syncAndRenderResults();
+    startWinnersSync();
+    showScreen('adminInvite');
+    return;
+  }
+
+  showScreen('confirm');
+  updateEtikettNameSize();
 }
+
+restoreSavedName();
 
 window.addEventListener('resize', updateEtikettNameSize);
 
