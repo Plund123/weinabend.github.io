@@ -4,6 +4,7 @@ const screens = {
   profile: document.querySelector('#profile'),
   swipedThrough: document.querySelector('#swiped-through'),
   result: document.querySelector('#result'),
+  adminInvite: document.querySelector('#admin-invite'),
   admin: document.querySelector('#admin'),
 };
 
@@ -153,6 +154,7 @@ const winnersList = document.querySelector('#winners-list');
 const losersList = document.querySelector('#losers-list');
 const adminWinnersList = document.querySelector('#admin-winners-list');
 const adminLosersList = document.querySelector('#admin-losers-list');
+const adminShowResultsButton = document.querySelector('#admin-show-results-button');
 const adminRefreshButton = document.querySelector('#admin-refresh-button');
 const adminResetResultsButton = document.querySelector('#admin-reset-results-button');
 const swipedThroughCloseButton = document.querySelector('#swiped-through-close');
@@ -469,7 +471,7 @@ form.addEventListener('submit', (event) => {
   if (name.toLowerCase() === 'admin') {
     syncAndRenderResults();
     startWinnersSync();
-    showScreen('admin');
+    showScreen('adminInvite');
     return;
   }
 
@@ -509,6 +511,11 @@ document.querySelector('#like-button').addEventListener('click', () => {
 });
 
 swipedThroughCloseButton.addEventListener('click', closeSwipedThroughPage);
+
+adminShowResultsButton.addEventListener('click', () => {
+  syncAndRenderResults();
+  showScreen('admin');
+});
 
 adminRefreshButton.addEventListener('click', syncAndRenderResults);
 
