@@ -461,9 +461,7 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
 
   .wine-profile::before {
     height: 112px;
-    background:
-      linear-gradient(180deg, rgba(9, 11, 18, 0.86), rgba(9, 11, 18, 0.24) 62%, transparent),
-      linear-gradient(90deg, rgba(253, 38, 122, 0.22), rgba(255, 122, 61, 0.16));
+    background: linear-gradient(180deg, rgba(9, 11, 18, 0.86), rgba(9, 11, 18, 0.24) 62%, transparent);
   }
 
   .profile-logo {
