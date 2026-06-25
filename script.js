@@ -313,6 +313,7 @@ function setName(name) {
 function setProfilePhoto(profile) {
   profilePhoto.style.backgroundImage = '';
   profilePhoto.style.removeProperty('--profile-photo-position');
+  wineProfileCard.style.removeProperty('--profile-photo-ratio');
   profilePhoto.classList.remove('profile-photo--image');
   profilePhotoImage.removeAttribute('src');
 
@@ -331,6 +332,7 @@ function setProfilePhoto(profile) {
     }
 
     profilePhoto.style.backgroundImage = `url("${profile.image}")`;
+    wineProfileCard.style.setProperty('--profile-photo-ratio', `${(profileImage.naturalHeight / profileImage.naturalWidth) * 100}%`);
     profilePhotoImage.src = profile.image;
     profilePhoto.classList.add('profile-photo--image');
   });
