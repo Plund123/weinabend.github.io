@@ -372,7 +372,34 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
 .action-message { min-height: 28px; margin: 12px 0 0; text-align: center; color: var(--tinder-red); font-weight: 800; }
 
 .result-card { max-width: 820px; }
+.admin-invite-card { max-width: 880px; }
 .admin-card { max-width: 980px; }
+.qr-code-card {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  width: min(100%, 430px);
+  margin: 28px auto;
+  padding: clamp(18px, 4vw, 28px);
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  background: var(--surface-soft);
+  box-shadow: 0 18px 42px rgba(28, 35, 48, 0.12);
+}
+
+.qr-code-card img {
+  display: block;
+  width: min(100%, 320px);
+  height: auto;
+  border-radius: 20px;
+  background: #fff;
+}
+
+.qr-code-card figcaption {
+  color: var(--muted);
+  font-weight: 800;
+}
+
 .results-overview { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin: 22px 0; }
 .winners-panel { min-width: 0; padding: 22px; border: 1px solid var(--line); border-radius: 26px; background: var(--surface-soft); text-align: left; }
 .winners-panel--success { border-color: rgba(24, 214, 143, 0.35); background: rgba(24, 214, 143, 0.08); }
