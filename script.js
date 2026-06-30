@@ -169,7 +169,7 @@ const wineProfiles = [
     image: 'assets/profiles/illusion-profil.png',
     photoPosition: 'center 42%',
     ariaLabel: 'Illusion Blanc de Noir 2022 Profilbild mit Meyer-Näkel Weinflasche',
-    verified: '✓ Richtiger Wein',
+    verified: '✓ Pinot im Tarnmodus',
     bio: 'Ich heiße Illusion, weil ich als Spätburgunder weiß auftrete und damit jedes Glas kurz in eine Identitätskrise stürze. Jahrgang 2022, Ahr im Herzen, Zitrus im Flirtmodus und mineralisch genug, um beim ersten Schluck seriös zu wirken.',
     tags: ['🥂 Undercover-Pinot', '🍐 Birne mit Attitüde', '🍎 Apfel-Alarm', '🍑 Pfirsich-Plot-Twist', '🍋 Zitrus-Zwinker'],
     details: {
@@ -412,6 +412,7 @@ function renderProfile() {
   promptText.textContent = profile.prompt;
   progressText.textContent = `Profil ${currentProfileIndex + 1} von ${wineProfiles.length}`;
   actionMessage.textContent = '';
+  document.querySelector('.profile-content').scrollTop = 0;
 }
 
 function renderNameList(listElement, names, emptyText) {
