@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1365" role="img" aria-labelledby="title desc">
+  <title id="title">Grainhuebel Grande Dame Profilbild</title>
+  <desc id="desc">Stilvolle Dame mit einer Siben Grainhuebel Rieslingflasche vor einer warmen Weinbar.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#312046"/>
+      <stop offset="0.45" stop-color="#8b2f51"/>
+      <stop offset="1" stop-color="#e19a4a"/>
+    </linearGradient>
+    <linearGradient id="bar" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#261926"/>
+      <stop offset="1" stop-color="#09080c"/>
+    </linearGradient>
+    <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f5c6a4"/>
+      <stop offset="1" stop-color="#c97d5c"/>
+    </linearGradient>
+    <linearGradient id="dress" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#11151e"/>
+      <stop offset="1" stop-color="#621331"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#4a170f"/>
+      <stop offset="0.35" stop-color="#180908"/>
+      <stop offset="0.63" stop-color="#8a3a21"/>
+      <stop offset="1" stop-color="#1b0807"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff1a8"/>
+      <stop offset="0.48" stop-color="#b78120"/>
+      <stop offset="1" stop-color="#f2c75e"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="28" stdDeviation="24" flood-color="#000" flood-opacity="0.36"/>
+    </filter>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#000" flood-opacity="0.24"/>
+    </filter>
+  </defs>
+
+  <rect width="1024" height="1365" fill="url(#sky)"/>
+  <circle cx="794" cy="154" r="154" fill="#ffd36f" opacity="0.24"/>
+  <circle cx="179" cy="249" r="96" fill="#ffffff" opacity="0.11"/>
+  <g opacity="0.18" fill="none" stroke="#fff" stroke-width="5">
+    <path d="M-24 860c204-148 407-148 611 0s407 148 611 0"/>
+    <path d="M-58 969c224-129 450-129 676 0s452 129 678 0"/>
+  </g>
+
+  <rect y="790" width="1024" height="575" fill="url(#bar)"/>
+  <ellipse cx="532" cy="920" rx="520" ry="155" fill="#120d13" opacity="0.58"/>
+  <g opacity="0.28">
+    <circle cx="138" cy="1030" r="8" fill="#ffd879"/>
+    <circle cx="215" cy="986" r="5" fill="#ffffff"/>
+    <circle cx="842" cy="920" r="7" fill="#ffd879"/>
+    <circle cx="899" cy="1016" r="4" fill="#ffffff"/>
+    <circle cx="742" cy="1074" r="6" fill="#ffd879"/>
+  </g>
+
+  <g filter="url(#shadow)">
+    <path d="M225 783c34-130 127-207 260-229 109 7 192 79 236 216 32 99 45 249 37 449H176c-9-179 7-324 49-436z" fill="url(#dress)"/>
+    <path d="M289 654c31-97 111-154 220-154 128 0 214 72 246 197-48 34-91 48-128 43-42-6-66-35-103-33-47 2-79 51-137 50-34 0-67-34-98-103z" fill="#1b151b"/>
+    <path d="M368 713c-92 31-167 93-226 188l72 76c59-87 117-139 174-154z" fill="url(#skin)"/>
+    <path d="M657 717c89 35 160 95 214 181l-70 77c-56-79-112-127-170-143z" fill="url(#skin)"/>
+    <ellipse cx="506" cy="471" rx="146" ry="165" fill="#21151b"/>
+    <path d="M360 428c5-101 67-178 165-183 95-5 167 68 178 178 14 138-58 232-172 244-102 11-180-85-171-239z" fill="#201217"/>
+    <path d="M392 449c10-91 58-139 143-145 74 0 119 50 137 151-15 120-65 190-151 200-86-8-129-76-129-206z" fill="url(#skin)"/>
+    <path d="M383 407c89-22 159-63 210-121 70 26 112 78 126 158-41-15-80-47-116-94-53 55-126 87-220 96z" fill="#171014"/>
+    <path d="M453 520c39 22 78 22 118 0" fill="none" stroke="#762f35" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="460" cy="456" r="9" fill="#32161b"/>
+    <circle cx="574" cy="456" r="9" fill="#32161b"/>
+    <path d="M514 463c-7 35-19 57-37 66 25 10 51 8 77-6" fill="none" stroke="#b96857" stroke-width="7" stroke-linecap="round"/>
+    <path d="M381 650c43 41 86 62 129 63 43-1 86-22 128-63l45 160H335z" fill="#f1bd99"/>
+    <path d="M318 728c96 78 204 100 324 66l38 425H320z" fill="url(#dress)"/>
+    <path d="M385 747c40 45 83 67 129 65 48-1 90-26 128-73" fill="none" stroke="#f7d48a" stroke-width="9" stroke-linecap="round"/>
+  </g>
+
+  <g transform="translate(613 365) rotate(-6)" filter="url(#shadow)">
+    <path d="M93 0h95l13 356c3 56 40 93 65 141 51 96 60 405 38 548-9 58-43 91-99 98H77c-58-7-92-40-100-98-22-143-14-452 38-548 25-48 62-85 65-141z" fill="url(#glass)"/>
+    <path d="M93 0h95v72H93z" fill="url(#gold)"/>
+    <path d="M88 72h104v128H88z" fill="#3b1a11" opacity="0.94"/>
+    <path d="M99 90h22v710" stroke="#ffffff" stroke-width="17" stroke-linecap="round" opacity="0.28"/>
+    <path d="M155 98h13v642" stroke="#ffffff" stroke-width="9" stroke-linecap="round" opacity="0.18"/>
+    <rect x="4" y="653" width="272" height="260" rx="18" fill="#151820"/>
+    <rect x="17" y="666" width="246" height="234" rx="12" fill="#22242b" stroke="#08090e" stroke-width="4"/>
+    <text x="140" y="735" text-anchor="middle" fill="#f0d18a" font-family="Georgia, serif" font-size="46" font-weight="700" letter-spacing="4">SIBEN</text>
+    <circle cx="140" cy="802" r="54" fill="none" stroke="#d9b363" stroke-width="8"/>
+    <text x="140" y="821" text-anchor="middle" fill="#d9b363" font-family="Georgia, serif" font-size="50" font-style="italic">GG</text>
+    <text x="140" y="874" text-anchor="middle" fill="#e4c47b" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="2">GRAINHUEBEL</text>
+    <path d="M93 29c26 15 58 15 95 0" fill="none" stroke="#ffef9a" stroke-width="5" opacity="0.9"/>
+  </g>
+
+  <g filter="url(#soft)">
+    <path d="M150 1136c98 50 210 75 336 75 135 0 259-30 372-91" fill="none" stroke="#f1c15d" stroke-width="12" stroke-linecap="round" opacity="0.72"/>
+    <path d="M122 1189c146 54 309 75 488 62 94-7 181-25 261-54" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" opacity="0.24"/>
+  </g>
+</svg>

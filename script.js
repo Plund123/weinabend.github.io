@@ -126,6 +126,28 @@ const wineProfiles = [
     },
     prompt: '„Wenn du Schiefer, Sonnenuntergänge und ehrliche Gespräche magst, sollten wir anstoßen.“',
   },
+  {
+    id: 'grainhuebel-grande-dame',
+    isCorrect: false,
+    match: '96% Match',
+    title: 'Grainhübel Grande Dame, 2021',
+    label: 'Siben\nGG',
+    image: 'assets/profiles/grainhuebel-grande-dame.svg',
+    photoPosition: 'center 42%',
+    ariaLabel: 'Grainhübel Grande Dame Profilbild: elegante Dame mit Siben Grainhübel Rieslingflasche in warmer Weinbar',
+    verified: '✓ VDP-Adlerin',
+    bio: 'Ich bin trocken, bio und komme aus Deidesheim. Meine Säure ist mittel, meine Ansprüche sind Großes Gewächs und ich erkläre dir Mineralität nur, wenn du wirklich fragst.',
+    tags: ['🍋 Riesling', '🦅 VDP GG', '🌿 Bio', '🏅 93 Falstaff', '💅 Deidesheim'],
+    details: {
+      Herkunft: 'Grainhübel Deidesheim, Pfalz',
+      Stil: 'Riesling · trocken · 12,5 %',
+      Beruf: 'Premium-Prinzessin mit Bodenhaftung',
+      Sucht: 'Austern, Käse und Applaus beim ersten Schluck',
+      'Red Flag': 'Nennt Alltagswein konsequent „Probephase“',
+      Motto: 'Mittlere Säure, maximale Grandezza.',
+    },
+    prompt: '„Ich bringe Struktur, Frische und einen VDP-Adler mit. Du nur zwei Gläser.“',
+  },
 ];
 
 const form = document.querySelector('#name-form');
