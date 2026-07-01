@@ -193,6 +193,7 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
 .button--ghost { color: var(--text); background: #fff; border: 1px solid var(--line); box-shadow: 0 10px 28px rgba(40, 48, 64, 0.1); }
 
 .wine-profile {
+  --profile-header-height: 64px;
   position: relative;
   display: grid;
   grid-template: minmax(0, 1fr) / minmax(0, 1fr);
@@ -219,7 +220,7 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
   top: 0;
   right: 0;
   left: 0;
-  height: 64px;
+  height: var(--profile-header-height);
   border-bottom: 1px solid rgba(255,255,255,0.08);
   background: #050608;
   pointer-events: none;
@@ -230,7 +231,7 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
   z-index: 5;
   top: 12px;
   left: 18px;
-  width: 132px;
+  width: 148px;
   height: auto;
   filter: drop-shadow(0 3px 14px rgba(0,0,0,0.5));
 }
@@ -239,8 +240,9 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
   grid-area: 1 / 1;
   position: relative;
   display: grid;
-  height: 100%;
+  height: calc(100% - var(--profile-header-height));
   min-height: 0;
+  margin-top: var(--profile-header-height);
   place-items: end center;
   overflow: hidden;
   isolation: isolate;
@@ -299,7 +301,7 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
 .profile-photo::after {
   content: "Heute Abend · 2 km entfernt";
   position: absolute;
-  top: 68px;
+  top: 12px;
   right: 18px;
   z-index: 3;
   border: 1px solid rgba(255,255,255,0.3);
@@ -329,7 +331,7 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
   z-index: 2;
   align-self: stretch;
   height: 100%;
-  padding: calc(var(--profile-photo-ratio, 90.7%) + 8px) 18px calc(132px + env(safe-area-inset-bottom));
+  padding: calc(var(--profile-header-height) + var(--profile-photo-ratio, 90.7%) + 8px) 18px calc(132px + env(safe-area-inset-bottom));
   overflow-y: auto;
   scrollbar-width: none;
   color: #fff;
@@ -450,6 +452,7 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
   }
 
   .wine-profile {
+    --profile-header-height: calc(72px + env(safe-area-inset-top));
     width: 100%;
     height: 100dvh;
     min-height: 100dvh;
@@ -459,25 +462,25 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
   }
 
   .wine-profile::before {
-    height: calc(72px + env(safe-area-inset-top));
+    height: var(--profile-header-height);
     background: #050608;
   }
 
   .profile-logo {
     top: max(12px, calc(env(safe-area-inset-top) + 12px));
     left: 18px;
-    width: 142px;
+    width: 156px;
   }
 
   .profile-photo::after {
-    top: max(84px, calc(env(safe-area-inset-top) + 84px));
+    top: 12px;
     right: 14px;
     padding: 8px 10px;
     font-size: 0.68rem;
   }
 
   .profile-content {
-    padding: calc(var(--profile-photo-ratio, 90.7%) + 8px) 16px calc(112px + env(safe-area-inset-bottom));
+    padding: calc(var(--profile-header-height) + var(--profile-photo-ratio, 90.7%) + 8px) 16px calc(112px + env(safe-area-inset-bottom));
     background: linear-gradient(180deg, rgba(0,0,0,0) 0 38%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.9) 66%, rgba(0,0,0,0.98));
   }
 
