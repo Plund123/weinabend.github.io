@@ -219,21 +219,20 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
   top: 0;
   right: 0;
   left: 0;
-  display: flex;
-  align-items: center;
-  height: 72px;
-  background: linear-gradient(180deg, rgba(11, 13, 21, 0.7), transparent);
+  height: 58px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  background: #050608;
   pointer-events: none;
 }
 
 .profile-logo {
   position: absolute;
   z-index: 5;
-  top: 18px;
+  top: 12px;
   left: 18px;
-  width: 142px;
+  width: 112px;
   height: auto;
-  filter: drop-shadow(0 3px 18px rgba(0,0,0,0.52));
+  filter: drop-shadow(0 3px 14px rgba(0,0,0,0.5));
 }
 
 .profile-photo {
@@ -460,18 +459,18 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
   }
 
   .wine-profile::before {
-    height: 112px;
-    background: linear-gradient(180deg, rgba(9, 11, 18, 0.86), rgba(9, 11, 18, 0.24) 62%, transparent);
+    height: calc(58px + env(safe-area-inset-top));
+    background: #050608;
   }
 
   .profile-logo {
-    top: max(14px, env(safe-area-inset-top));
+    top: max(12px, calc(env(safe-area-inset-top) + 12px));
     left: 16px;
-    width: 132px;
+    width: 108px;
   }
 
   .profile-photo::after {
-    top: max(18px, calc(env(safe-area-inset-top) + 4px));
+    top: max(70px, calc(env(safe-area-inset-top) + 70px));
     right: 14px;
     padding: 8px 10px;
     font-size: 0.68rem;
