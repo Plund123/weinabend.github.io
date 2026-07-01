@@ -219,7 +219,7 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
   top: 0;
   right: 0;
   left: 0;
-  height: 74px;
+  height: 64px;
   border-bottom: 1px solid rgba(255,255,255,0.08);
   background: #050608;
   pointer-events: none;
@@ -228,9 +228,9 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
 .profile-logo {
   position: absolute;
   z-index: 5;
-  top: 17px;
+  top: 12px;
   left: 18px;
-  width: 138px;
+  width: 132px;
   height: auto;
   filter: drop-shadow(0 3px 14px rgba(0,0,0,0.5));
 }
@@ -459,18 +459,18 @@ button:hover { transform: translateY(-2px); filter: brightness(1.04); }
   }
 
   .wine-profile::before {
-    height: calc(96px + env(safe-area-inset-top));
+    height: calc(72px + env(safe-area-inset-top));
     background: #050608;
   }
 
   .profile-logo {
-    top: max(26px, calc(env(safe-area-inset-top) + 26px));
+    top: max(12px, calc(env(safe-area-inset-top) + 12px));
     left: 18px;
-    width: 154px;
+    width: 142px;
   }
 
   .profile-photo::after {
-    top: max(112px, calc(env(safe-area-inset-top) + 112px));
+    top: max(84px, calc(env(safe-area-inset-top) + 84px));
     right: 14px;
     padding: 8px 10px;
     font-size: 0.68rem;
